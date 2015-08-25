@@ -1,0 +1,278 @@
+﻿@model ZitelliProfile.Presentation.Web.Models.HomePageModel
+@{
+    ViewBag.Title = "Home Page - Cristian Zitelli";
+}
+@section featured {
+    @* <div style="background-color:lawngreen;height:10%">
+                       
+                            <header class="container small">
+                                <h2>logueaté</h2>
+                            </header>
+    </div>*@
+}
+
+<!-- Header -->
+
+
+<div id="header">
+
+    <img class="icon" src="images/profileimage.jpg" style="width: 9%; border-radius: 50%; z-index: 10000;" />
+    <h1><a href="#Contacto">Cristian Zitelli</a></h1>
+    <p>Mi sitio web para saber algo acerca de mi vida, mi persona, mis relaciones empresariales.</p>
+    <p>
+        <ul class="icons">
+            <li>
+                <a class="icon fa-question" href="#Contacto" title="Contacto"></a>
+
+            </li>
+            <li>
+                @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                    @Html.AntiForgeryToken()
+                    <a class="icon fa-power-off" id="login2" href="javascript:document.getElementById('logoutForm').submit()" title="Salir" style="cursor: pointer"></a>
+                            
+                    }
+                }
+                else
+                {
+                    <a id="login" class='icon fa-user' title='Ingresar' style="cursor: pointer"></a>
+                }
+
+
+            </li>
+            <li><a class="icon fa-info" href="#About" title="Acerca de"></a></li>
+        </ul>
+    </p>
+    @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+    { 
+        <section id="loginForm" style="display: none">
+
+            <header class="major last container small">
+                <h2>logueaté</h2>
+            </header>
+            <div class="container small">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new object { }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div>
+                        <div class="row no-collapse-1">
+                            <div class="6u">
+                                @Html.TextBoxFor(m => m.UserName, new { placeholder = "Nombre Usuario" })
+
+                            </div>
+                            <div class="6u">
+                                @Html.TextBoxFor(m => m.Password, new { placeholder = "Contraseña" })
+                            </div>
+                        </div>
+                        <div class="row no-collapse-1">
+                            <div class="12u">
+                                <input type="submit" value="Log in" />
+                            </div>
+                        </div>
+                    </div>@*
+                    <p>
+                        @Html.ActionLink("Register", "Register") if you don't have an account.
+                    </p>*@
+                }
+            </div>
+        </section>
+    }
+
+
+    <ul class="icons">
+        <li><a href="https://twitter.com/Cryxtyan" target="_blank" class="icon fa-twitter"></a></li>
+        <li><a href="https://www.facebook.com/cristian.zitelli.7" target="_blank" class="icon fa-facebook"></a></li>
+        <li><a href="http://ar.linkedin.com/pub/cristian-zitelli/31/759/276" target="_blank" class="icon fa-linkedin-square"></a></li>
+        <li><a href="mailto:contacto@cristianzitelli.com.ar?Subject=Homepage" class="icon fa-comments"></a></li>
+        <li><a href="callto://cristianzitelli" class="icon fa-skype"></a></li>
+    </ul>
+    Descargá mi CV
+    <ul class="icons">
+        <li><a href="Content/Files/CristianZitelli CV.pdf" target="_blank" title="Descargar CV" class="icon fa-download"></a></li>
+    </ul>
+
+    <ul class="copyright">
+        <li><a href="mailto://contacto@cristianzitelli.com.ar?Subject=Homepage">contacto@cristianzitelli.com.ar.</a></li>
+        <li>HTML5 Design: <a href="mailto:contacto@cristianzitelli.com.ar?Subject=Homepage">Cristian Zitelli</a></li>
+    </ul>
+</div>
+
+<!-- Main -->
+<div id="main">
+    
+
+     @if (HttpContext.Current.User.Identity.IsAuthenticated)
+     { 
+         <header class="major container small">
+             <h2>Informacion </h2>
+         </header>
+        @Html.Partial("_SuggestionsPartial", Model);
+        @Html.Partial("_EmailsPartial", Model);
+    }
+    <header id="About" class="major container small">
+        <h2>Experiencias Personales</h2>
+    </header>
+    <div class="box alt container">
+        <section class="feature left">
+            <a href="http://info.unlp.edu.ar/" class="image icon fa-university">
+                <img src="images/enquiries.jpeg" alt="" /></a>
+            <div class="content">
+                <h3>Mi primer encuentro</h3>
+                <p>Pasaba el año 2006 y comienzo la facultad, algo nuevo para mi. Donde conocí el desarrollo de aplicaciones y sistemas, cosa que antes no había conocido.</p>
+            </div>
+        </section>
+        <section class="feature right">
+            <a href="http://www.accenture.com/ar-es/Pages/index.aspx" class="image icon fa-search">
+                <img src="images/accenture.jpg" alt="" /></a>
+            <div class="content">
+                <h3>En la busqueda</h3>
+                <p>En la busqueda de mi primer trabajo, me tope con ciertos miedos falsos, pensando que no estaba apto, entre a Accenture en 2010, luego de un curso de .NET que se dio en las instalaciones, donde supe que estaba mas que apto, ya que cursaba el 3er año de la facultad.</p>
+            </div>
+        </section>
+        <section class="feature left">
+            <a href="http://vmnplus.com/?lang=en" class="image icon fa-home">
+                <img src="images/vmn.jpg" alt="" /></a>
+            <div class="content">
+                <h3>Actualmente</h3>
+                <p>Actualmente mi casa es VMN+, desde mayo 2012 me encuentro en la software factory de La Plata, acompañado de unos excelentes colegas, los cuales me hacen vivir una jornada sin preocupaciones.</p>
+            </div>
+        </section>
+        <section class="feature right">
+            <a href="#" class="image icon fa-clock-o">
+                <img src="images/future.jpg" alt="" /></a>
+            <div class="content">
+                <h3>Futuro</h3>
+                <p>
+                    Me veo recibido, logicamente es algo que lleva su tiempo y su desgaste diario, si bien, 
+                                al estudio lo deje un poco de lado un tiempo, espero verme recibido en unos años, 
+                                en cuanto al empleo, me veo en un alto cargo como naturalmente suele suceder, y lo personal
+                                pienso con una familia a la cual me aferrare en todo sentido.
+                </p>
+            </div>
+        </section>
+    </div>
+
+
+    <footer class="major container small">
+        <div class="container small">
+
+            <header class="major last">
+                <h2>¿Que te parecio la pagina?</h2>
+            </header>
+
+            <p>Dejame un comentarario para mejorar.</p>
+
+
+            @using (Html.BeginForm("SendSuggestion", "Home", FormMethod.Post, new object { }))
+            {
+                <div class="row no-collapse-1">
+                    <div class="6u">
+                        @Html.TextBoxFor(m => m.UserName, new { placeholder = "Nombre" })
+
+                    </div>
+                    <div class="6u">
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" })
+                    </div>
+                </div>
+                <div class="row no-collapse-1">
+                    <div class="12u">
+                        @Html.TextAreaFor(m => m.Body, new { placeholder = "Mensaje", rows = "6" })
+                    </div>
+                </div>
+                <div class="row no-collapse-1">
+                    <div class="12u">
+                        <ul class="actions">
+                            <li>
+                                <input type="submit" value="Enviar Mensaje" /></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    </footer>
+
+</div>
+
+
+<div id="footer">
+    <div class="container small">
+        <section>
+            <header id="Contacto">
+                <h3>Contactame</h3>
+            </header>
+            @using (Html.BeginForm("SendMail", "Home", FormMethod.Post, new { }))
+            {       <div class="row">
+                <div class="6u">
+                    @Html.Label("Nombre", new { @for = "UserName" })
+                    @Html.TextBoxFor(m => m.UserName, new { placeholder = "Pablo Pedro", @class = "text" })
+                </div>
+                <div class="6u">
+                    @Html.Label("EMail", new { @for = "EMail" })
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = "pablopedro@dominio.algo", @class = "text" })
+                </div>
+            </div>
+                <div class="row">
+                    <div class="12u">
+                        @Html.Label("Asunto", new { @for = "Subject" })
+                        @Html.TextBoxFor(m => m.Subject, new { placeholder = "Ingresar asunto", @class = "text" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="12u">
+                        @Html.Label("Mensaje", new { @for = "Body" })
+                        @Html.TextAreaFor(m => m.Body, new { placeholder = "Ingresa tu mensaje", @class = "text", rows = "6" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="12u">
+                        <div class="4u">
+
+                        </div>
+                        <div class="4u"  style=" display: inline;">
+                            <ul class="actions">
+                                <li>
+                                    <input type="submit" value="Enviar" />
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="4u"></div>
+                    </div>
+                </div>
+                
+            
+            }
+
+            <ul class="icons">
+                <li><a href="https://twitter.com/Cryxtyan" target="_blank" class="icon fa-twitter"></a></li>
+                <li><a href="https://www.facebook.com/cristian.zitelli.7" target="_blank" class="icon fa-facebook"></a></li>
+                <li><a href="http://ar.linkedin.com/pub/cristian-zitelli/31/759/276" target="_blank" class="icon fa-linkedin-square"></a></li>
+                <li><a href="mailto://contacto@cristianzitelli.com.ar?Subject=Homepage" class="icon fa-comments"></a></li>
+                @*<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+                <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>*@
+            </ul>
+            <ul class="copyright">
+                <li><a href="mailto:contacto@cristianzitelli.com.ar?Subject=Homepage">contacto@cristianzitelli.com.ar.</a></li>
+                <li>HTML5 Design: <a href="mailto:contacto@cristianzitelli.com.ar?Subject=Homepage">Cristian Zitelli</a></li>
+                <li><a href="callto://cristianzitelli" class="icon fa-skype"></a></li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+@if (!HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <script>
+        $("#login").click(function () {
+            $("#loginForm").slideToggle(800, function () { });
+        }
+        );
+    </script>
+}
+<div id="divEnd"></div>
+

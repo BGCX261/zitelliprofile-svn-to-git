@@ -1,0 +1,24 @@
+﻿@model ZitelliProfile.Presentation.Web.Models.HomePageModel
+@{
+    
+    var grid = new WebGrid(Model.UserSuggestions);
+    
+    
+    }
+
+<!-- Header -->
+
+<section>
+	<header>
+		<h3>@Html.LabelFor(m => m.UserSuggestions)</h3>
+	</header>
+	<div class="table-wrapper">
+        @grid.GetHtml("default", columns: new WebGridColumn[] 
+            {
+                grid.Column("Datetime","Fecha"),
+                grid.Column("UserName","Usuario"), 
+                grid.Column("Email","Email"),
+                grid.Column("Body","Mensaje"),
+            });	
+	</div>
+</section>
